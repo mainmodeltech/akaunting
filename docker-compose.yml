@@ -1,0 +1,36 @@
+services:
+  akaunting-db:
+    image: mariadb:10.11
+    container_name: akaunting-db
+    restart: always
+    environment:
+      - MYSQL_DATABASE=${DB_DATABASE}
+      - MYSQL_USER=${DB_USERNAME}
+      - MYSQL_PASSWORD=${DB_PASSWORD}
+      - MYSQL_ROOT_PASSWORD=${DB_ROOT_PASSWORD}
+    volumes:
+      - akaunting_db_data:/var/lib/mysql
+
+  akaunting-app:
+    image: akaunting/akaunting:latest
+    container_name: akaunting-app
+    restart: always
+    depends_on:
+      - akaunting-db
+    environment:
+      - APP_URL=${APP_URL}
+      - DB_HOST=akaunting-db
+      - DB_DATABASE=${DB_DATABASE}
+      - DB_USERNAME=${DB_USERNAME}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - AKAUNTING_SETUP=true
+    volumes:
+      - akaunting_modules:/var/www/html/modules
+      - akaunting_resources:/var/www/html/resources
+      - akaunting_storage:/var/www/html/storage
+
+volumes:
+  akaunting_db_data:
+  akaunting_modules:
+  akaunting_resources:
+  akaunting_storage:
