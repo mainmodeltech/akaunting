@@ -3,6 +3,8 @@ services:
     image: mariadb:10.11
     container_name: akaunting-db
     restart: always
+    networks:
+      - dokploy-network
     environment:
       - MYSQL_DATABASE=${DB_DATABASE}
       - MYSQL_USER=${DB_USERNAME}
@@ -15,6 +17,8 @@ services:
     image: akaunting/akaunting:latest
     container_name: akaunting-app
     restart: always
+    networks:
+      - dokploy-network
     depends_on:
       - akaunting-db
     environment:
@@ -40,3 +44,7 @@ volumes:
   akaunting_modules:
   akaunting_resources:
   akaunting_storage:
+
+networks:
+  dokploy-network:
+    external: true
