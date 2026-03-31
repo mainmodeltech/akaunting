@@ -21,9 +21,15 @@ services:
       - APP_URL=${APP_URL}
       - DB_HOST=akaunting-db
       - DB_DATABASE=${DB_DATABASE}
+      - DB_PORT=3306
       - DB_USERNAME=${DB_USERNAME}
       - DB_PASSWORD=${DB_PASSWORD}
       - AKAUNTING_SETUP=true
+      - COMPANY_NAME=${COMPANY_NAME}
+      - COMPANY_EMAIL=${COMPANY_EMAIL}
+      - ADMIN_EMAIL=${ADMIN_EMAIL}
+      - ADMIN_PASSWORD=${ADMIN_PASSWORD}
+      - LOCALE=${LOCALE}
     volumes:
       - akaunting_modules:/var/www/html/modules
       - akaunting_resources:/var/www/html/resources
